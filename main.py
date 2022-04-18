@@ -1,11 +1,15 @@
-import fastapi
-
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from config import settings
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
 
-@app.get('/')
-async def home_page():
-    return {'Project': 'FastAPI Job Tracker'}
+app.mount('/static', StaticFiles(directory='static'), name='static')
+templates = Jinja2Templates(directory='templates')
+
+
+@app.get('/', response_class=HTMLResponse)
+async def home_page(request: Request):
+    return templates.TemplateResponse('/pages/home.html', {'request': request})
