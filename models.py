@@ -9,7 +9,6 @@ from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-
 class User(Base):
     __tablename__ = "users"
     id = Column(String, primary_key=True, index=True)
@@ -38,7 +37,7 @@ class User(Base):
 
 class Job(Base):
     __tablename__ = "jobs"
-    id = Column(String, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     company = Column(String)
     title = Column(String)
     description = Column(String)
