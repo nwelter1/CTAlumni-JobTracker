@@ -76,7 +76,7 @@ def update_job(user_id: str, job_id: int, job: schemas.JobCreate, db: Session = 
     if verify_token(db=db, token=x_access_token, user_id=user_id):
         return crud.update_job(db, job, user_id, job_id)
 
-# DELETE -- Job
+# DELETE -- Jobs
 @app.delete('/jobs/{user_id}/{job_id}', response_model=schemas.Job)
 def delete_job(user_id: str, job_id: str, db: Session = Depends(get_db), x_access_token: str = Header(...)):
     if verify_token(db=db, token=x_access_token, user_id=user_id):
