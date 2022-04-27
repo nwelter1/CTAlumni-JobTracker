@@ -1,47 +1,76 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <h1>Here are your credentials for {{ user.email }}...</h1>
-    <h2>User ID: {{ user.id }}</h2>
-    <h2>User Token: {{ user.token }}</h2>
-    
-    <h1>here are your jobs!</h1>
-    <div class="row">
-        <div class="col-md-3 border border-dark">
-            <h1>Wishlist</h1>
-            {% for job in wishlist  %}
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">{{job.company}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{job.title}}</h6>
-                    <p class="card-text">{{job.description}}</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-3 border border-dark">
-            <h1>Applied</h1>
-            {% for job in applied  %}
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                    <h5 class="card-title">{{job.company}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">{{job.title}}</h6>
-                    <p class="card-text">{{job.description}}</p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="col-md-3 border border-dark">
-            
-        </div>
-        <div class="col-md-3 border border-dark">
-            
+    <div class="card col-md-8 offset-md-1">
+        <h5 class="card-header">Hello {{ user.email }}!</h5>
+        <div class="card-body">
+        <h5 class="card-title">User ID: {{ user.id }}</h5>
+        <h5 class="card-title">User API Token: {{ user.token }}</h5>
+        <p class="card-text">Do not give your token to anyone else! This is how we authenticate you to add/remove/update jobs.</p>
         </div>
     </div>
-    
-    
+    <div class="row">
+        <div class="col-md-2 offset-md-5 mt-4 align-items-center">
+            <h3 class="text-center">Jobs</h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <h6 class="text-center">Wishlist</h6>
+            <hr>
+            {% for job in wishlist %}
+                <div class="card m-auto" style="width: 80%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.company }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ job.title }}</h6>
+                        <p class="card-text">{{ job.description }}</p>
+                        <a href="{{ job.url }}" class="card-link">Job link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <h6 class="text-center">Applied</h6>
+            <hr>
+            {% for job in applied %}
+                <div class="card m-auto" style="width: 80%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.company }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ job.title }}</h6>
+                        <p class="card-text">{{ job.description }}</p>
+                        <a href="{{ job.url }}" class="card-link">Job link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <h6 class="text-center">Interviewing</h6>
+            <hr>
+            {% for job in interviewing %}
+                <div class="card m-auto" style="width: 80%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.company }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ job.title }}</h6>
+                        <p class="card-text">{{ job.description }}</p>
+                        <a href="{{ job.url }}" class="card-link">Job link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <h6 class="text-center">Accepted</h6>
+            <hr>
+            {% for job in accepted %}
+                <div class="card m-auto" style="width: 80%;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.company }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ job.title }}</h6>
+                        <p class="card-text">{{ job.description }}</p>
+                        <a href="http://www.{{ job.url }}" class="card-link">Link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
