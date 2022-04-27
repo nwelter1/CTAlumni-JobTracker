@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <h1>Here are your credentials for {{ user.email }}...</h1>
+    <h2>User ID: {{ user.id }}</h2>
+    <h2>User Token: {{ user.token }}</h2>
+    
+    <h1>here are your jobs!</h1>
+    <div class="row">
+        <div class="col-md-3 border border-dark">
+            <h1>Wishlist</h1>
+            {% for job in wishlist  %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">{{job.company}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{job.title}}</h6>
+                    <p class="card-text">{{job.description}}</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3 border border-dark">
+            <h1>Applied</h1>
+            {% for job in applied  %}
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                    <h5 class="card-title">{{job.company}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{job.title}}</h6>
+                    <p class="card-text">{{job.description}}</p>
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3 border border-dark">
+            
+        </div>
+        <div class="col-md-3 border border-dark">
+            
+        </div>
+    </div>
+    
+    
+{% endblock content %}
