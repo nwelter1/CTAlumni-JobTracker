@@ -1,5 +1,5 @@
-from email import message
 from os import stat
+from urllib import request
 from fastapi import FastAPI, Request, Depends, HTTPException, Header, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -83,34 +83,33 @@ def delete_job(user_id: str, job_id: str, db: Session = Depends(get_db), x_acces
     if verify_token(db=db, token=x_access_token, user_id=user_id):
         return crud.delete_job(db, user_id, job_id)
 
-# HTML/Frontend routing
 
-# Login Page
+# HTML / Frontend Routing
+# Rendering HTML Form for Login
 @app.get('/loginpage', response_class=HTMLResponse)
 async def login_page(request: Request):
-    print(request.method)
     return templates.TemplateResponse('pages/login.html', {'request': request})
 
-
-# Login Attempt
+# Post Login Form Data Here...
 @app.post('/login/')
 async def login_post(request: Request, email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    db_user = crud.get_user_by_email(db, email=email)
+    print(email, password)
+    db_user = crud.get_user_by_email(db, email)
     if not db_user:
-        raise HTTPException(status_code=404, detail='user not found')
+        raise HTTPException(status_code=404, detail="User not found!")
     if not db_user.verify_password(password):
-        raise HTTPException(status_code=401, detail='Ivalid pw for user')
-    
+        raise HTTPException(status_code=401, detail=f"Incorrect pw for {email}")
+
     wishlist = [job for job in db_user.jobs if job.status == 'wishlist']
     applied = [job for job in db_user.jobs if job.status == 'applied']
     interviewing = [job for job in db_user.jobs if job.status == 'interviewing']
     accepted = [job for job in db_user.jobs if job.status == 'accepted']
+    
     return templates.TemplateResponse('pages/profile.html', {'request': request, 
-    'user':db_user, 
-    'wishlist': wishlist,
-    'applied': applied,
-    'interviewing': interviewing,
-    'accepted': accepted})
+    'user': db_user, 'wishlist': wishlist, 'applied': applied, 'interviewing': interviewing, 'accepted': accepted,})
+
+
+
 
 
 
